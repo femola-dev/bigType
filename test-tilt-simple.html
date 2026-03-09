@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tilt Test - Simple</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    button { padding: 15px 30px; margin: 10px; font-size: 16px; cursor: pointer; }
+    #status { margin-top: 20px; padding: 15px; background: #f0f0f0; }
+    #instructions { margin: 20px 0; padding: 15px; background: #e3f2fd; border-left: 4px solid #2196f3; }
+  </style>
+</head>
+<body>
+  <h1>3D Tilt Interaction Test</h1>
+  
+  <div id="instructions">
+    <strong>Instructions:</strong>
+    <ol>
+      <li>Click "Open Main Page" to open the portfolio in a new window</li>
+      <li>Wait for the loading screen to finish (~3.5 seconds)</li>
+      <li>Manually move your mouse over the portrait image on the right side</li>
+      <li>Observe if the image tilts in 3D toward your cursor</li>
+      <li>Move your mouse away and observe if it springs back smoothly</li>
+    </ol>
+  </div>
+  
+  <button onclick="window.open('http://localhost:5173/', '_blank', 'width=1920,height=1080')">
+    Open Main Page
+  </button>
+  
+  <div id="status">
+    <h3>What to look for:</h3>
+    <ul>
+      <li>✓ Image should tilt in 3D when you hover over it</li>
+      <li>✓ Tilt direction should follow your cursor (top-right hover = tilt toward top-right)</li>
+      <li>✓ Image should spring back smoothly when mouse leaves</li>
+      <li>✓ No visual glitches or jittering</li>
+    </ul>
+  </div>
+  
+  <hr style="margin: 30px 0;">
+  
+  <h2>Automated Test (Experimental)</h2>
+  <p>This will attempt to programmatically test the tilt by injecting mouse events.</p>
+  
+  <button onclick="runAutomatedTest()">Run Automated Test</button>
+  <button onclick="captureScreenshots()">Capture Test Screenshots</button>
+  
+  <div id="test-log" style="margin-top: 20px; padding: 15px; background: #fff3cd; max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 12px;"></div>
+  
+  <script>
+    let testWindow = null;
+    
+    function log(msg) {
+      const logDiv = document.getElementById('test-log');
+      const entry = document.createElement('div');
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      logDiv.appendChild(entry);
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+    
+    function runAutomatedTest() {
+      if (!testWindow || testWindow.closed) {
+        testWindow = window.open('http://localhost:5173/', 'tiltTest', 'width=1920,height=1080');
+        log('Opened new window, waiting for page to load...');
+        
+        setTimeout(() => {
+          log('Waiting for loading screen to finish...');
+          setTimeout(() => {
+            performTiltTest();
+          }, 4000);
+        }, 1000);
+      } else {
+        performTiltTest();
+      }
+    }
+    
+    function performTiltTest() {
+      if (!testWindow || testWindow.closed) {
+        log('ERROR: Test window is closed');
+        return;
+      }
+      
+      try {
+        const doc = testWindow.document;
+        const img = doc.querySelector('[class*="mainImage"]');
+        
+        if (!img) {
+          log('ERROR: Image element not found');
+          return;
+        }
+        
+        const rect = img.getBoundingClientRect();
+        log(`Image found at: left=${rect.left.toFixed(0)}, top=${rect.top.toFixed(0)}, width=${rect.width.toFixed(0)}, height=${rect.height.toFixed(0)}`);
+        
+        // Test 1: Top-right corner
+        log('Test 1: Simulating mouse move to top-right corner...');
+        const x1 = rect.right - 100;
+        const y1 = rect.top + 100;
+        simulateMouseEvent(img, 'mousemove', x1, y1);
+        log(`Dispatched mousemove to (${x1.toFixed(0)}, ${y1.toFixed(0)})`);
+        
+        setTimeout(() => {
+          // Test 2: Bottom-left corner
+          log('Test 2: Simulating mouse move to bottom-left corner...');
+          const x2 = rect.left + 100;
+          const y2 = rect.bottom - 100;
+          simulateMouseEvent(img, 'mousemove', x2, y2);
+          log(`Dispatched mousemove to (${x2.toFixed(0)}, ${y2.toFixed(0)})`);
+          
+          setTimeout(() => {
+            // Test 3: Mouse leave
+            log('Test 3: Simulating mouse leave...');
+            simulateMouseEvent(img, 'mouseleave', 0, 0);
+            log('Dispatched mouseleave event');
+            log('--- Test complete! Check the window for visual results ---');
+          }, 2000);
+        }, 2000);
+        
+      } catch (e) {
+        log(`ERROR: ${e.message}`);
+      }
+    }
+    
+    function simulateMouseEvent(element, type, x, y) {
+      const event = new MouseEvent(type, {
+        view: testWindow,
+        bubbles: true,
+        cancelable: true,
+        clientX: x,
+        clientY: y
+      });
+      element.dispatchEvent(event);
+    }
+    
+    function captureScreenshots() {
+      log('Screenshot capture is not available in this test harness.');
+      log('Please use browser DevTools or manual observation.');
+    }
+  </script>
+</body>
+</html>

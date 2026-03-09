@@ -1,0 +1,174 @@
+/* ============================================
+   LOADER — 1920 x 1080 reference frame
+   All positions derived from Figma pixel values
+   ============================================ */
+
+.loader {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  overflow: hidden;
+  padding-right: 4%;   /* prevent name text clipping on the right */
+  box-sizing: border-box;
+}
+
+/* ============================================
+   LOADING BAR
+   Figma: 1920 x 24  @  (0, 0)
+   Animates width 0 → 100% over loader duration
+   ============================================ */
+
+.loadingBarTrack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(16px, 2.222vh, 24px);  /* 24 / 1080 */
+  z-index: 10;
+  overflow: hidden;
+}
+
+.loadingBarFill {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  transform-origin: left center;
+}
+
+/* ============================================
+   PHOTO CARD
+   Figma: 200 x 237  @  (70, 78)
+   ============================================ */
+
+.photoCard {
+  position: absolute;
+  left: 3.646%;        /* 70 / 1920 */
+  top: 7.222%;         /* 78 / 1080 */
+  width: 10.417vw;     /* 200 / 1920 */
+  min-width: 140px;
+  z-index: 2;
+}
+
+.photoCardImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   SUBTITLE
+   Figma: (70, 329)  24px Inter Display Medium
+   line-height 32px, tracking -0.96px
+   ============================================ */
+
+.subtitle {
+  position: absolute;
+  left: 3.646%;        /* 70 / 1920 */
+  top: 30.463%;        /* 329 / 1080 */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.25vw, 24px);   /* 24 / 1920 */
+  line-height: 1.333;                      /* 32 / 24 */
+  letter-spacing: -0.04em;                 /* -0.96 / 24 */
+  color: #000;
+  white-space: nowrap;
+  z-index: 2;
+  font-optical-sizing: auto;
+  font-feature-settings: 'cpsp' 1, 'salt' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
+}
+
+/* ============================================
+   NAME + CARD ROW (single anchor for cross-browser alignment)
+   Wrapper positioned once from bottom so ISAAC and card stay aligned.
+   ISAAC bottom = 82.778vh + 10.417vw → row bottom = 17.222vh - 10.417vw
+   ============================================ */
+
+.nameCardRow {
+  position: absolute;
+  right: 2.083%;       /* 40 / 1920 */
+  bottom: calc(17.222vh - 10.417vw);
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;  /* vertically align micrographics with Isaac text line */
+  gap: clamp(12px, 1.5vw, 28px);
+  z-index: 2;
+}
+
+/* ============================================
+   NAME REVEAL
+   Figma container: 1117 x 316  @  (763, 724)
+   OLUWAFEMI @ (0, 0) inside container
+   ISAAC     @ (32, 170) right-aligned, w 1085
+   Font: 200px Inter Display ExtraBold, tracking -12px
+   ============================================ */
+
+.nameBlock {
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.nameLineWrapper {
+  overflow: hidden;
+}
+
+.nameLineWrapper + .nameLineWrapper {
+  margin-top: -1.5625vw; /* (170 - 200) / 1920 = -30 / 1920 */
+}
+
+.nameLine {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: clamp(48px, 10.417vw, 200px);  /* 200 / 1920 */
+  line-height: 1;
+  letter-spacing: -0.06em;                   /* -12 / 200 */
+  color: #000;
+  white-space: nowrap;
+  margin: 0;
+  font-optical-sizing: auto;
+}
+
+.nameLineIsaac {
+  text-align: right;
+}
+
+/* ============================================
+   MICRO-GRAPHICS CARD
+   Figma: 241 x 146. Aligned with ISAAC via flex-end in .nameCardRow
+   ============================================ */
+
+.microCard {
+  flex-shrink: 0;
+  width: clamp(160px, 12.552vw, 241px);  /* 241 / 1920 */
+  z-index: 3;
+}
+
+.microCardInner {
+  position: relative;
+}
+
+.microCardImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.speakerHit {
+  position: absolute;
+  left: 53.5%;
+  top: 35%;
+  width: 12%;
+  height: 10%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 4;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.speakerHit:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
