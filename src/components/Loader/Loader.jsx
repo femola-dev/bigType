@@ -7,6 +7,8 @@ import NameReveal from './NameReveal';
 import MicroGraphics from './MicroGraphics';
 
 const LOADER_DURATION_MS = 3500;
+const MotionDiv = motion.div;
+const MotionP = motion.p;
 
 export default function Loader({ onComplete, nameRef }) {
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function Loader({ onComplete, nameRef }) {
   return (
     <div className={styles.loader}>
       <div className={styles.loadingBarTrack}>
-        <motion.div
+        <MotionDiv
           className={styles.loadingBarFill}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -34,7 +36,7 @@ export default function Loader({ onComplete, nameRef }) {
 
       <PhotoCard delay={0.85} />
 
-      <motion.p
+      <MotionP
         className={styles.subtitle}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -45,7 +47,7 @@ export default function Loader({ onComplete, nameRef }) {
         }}
       >
         Product designer based in Toronto.
-      </motion.p>
+      </MotionP>
 
       <div className={styles.nameCardRow}>
         <NameReveal delay={0.45} nameRef={nameRef} />

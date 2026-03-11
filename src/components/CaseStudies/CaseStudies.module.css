@@ -1,0 +1,249 @@
+.section {
+  width: 100%;
+  background: #fff;
+  padding: 36px clamp(18px, 4vw, 70px) 120px;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 36px;
+  max-width: 1320px;
+}
+
+.avatarWrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #f2f2f2;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.menuIcon {
+  width: 18px;
+  height: 12px;
+  position: relative;
+  display: inline-block;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #111;
+  border-radius: 999px;
+}
+
+.menuIcon::before {
+  top: 1px;
+}
+
+.menuIcon::after {
+  bottom: 1px;
+}
+
+.menuText {
+  font-weight: 500;
+  font-size: 14px;
+  color: #111;
+}
+
+.list {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: minmax(320px, 720px) minmax(280px, 1fr);
+  gap: clamp(28px, 4vw, 70px);
+  align-items: start;
+  min-height: 78vh;
+  padding-bottom: 140px;
+}
+
+.itemRight {
+  padding-top: 36px;
+}
+
+.title {
+  font-size: clamp(48px, 6.2vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+}
+
+.description {
+  margin-top: 22px;
+  max-width: 44ch;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.itemLeft {
+  min-height: 420px;
+}
+
+.stickyWrap {
+  position: sticky;
+  top: 84px;
+  transform: translateY(calc(var(--stack-index, 0) * 14px));
+  z-index: calc(10 + var(--stack-index, 0));
+  will-change: transform;
+}
+
+.card {
+  border-radius: 18px;
+  border: 1.5px solid rgba(0, 0, 0, 0.10);
+  background: #fff;
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.cardInner {
+  padding: 18px;
+}
+
+.cardHeader {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f6f7f9;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.cardLogo {
+  width: 34px;
+  height: 14px;
+  border-radius: 999px;
+  background: #111;
+  opacity: 0.85;
+}
+
+.cardSearch {
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.cardChip {
+  justify-self: end;
+  width: 50px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.cardBody {
+  margin-top: 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 22px;
+  background: radial-gradient(
+      1200px 420px at 20% -10%,
+      rgba(0, 0, 0, 0.05),
+      transparent 60%
+    ),
+    #ffffff;
+}
+
+.cardMockTitle {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.cardMockRow {
+  height: 12px;
+  border-radius: 999px;
+  margin-top: 14px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.card[data-theme='dark'] .cardBody {
+  background: radial-gradient(
+      900px 360px at 70% 10%,
+      rgba(140, 80, 255, 0.35),
+      transparent 60%
+    ),
+    #0e0f14;
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+.card[data-theme='dark'] .cardHeader {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+.card[data-theme='dark'] .cardMockTitle {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.card[data-theme='dark'] .cardMockRow {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.card[data-theme='mobile'] .cardBody,
+.card[data-theme='mobile2'] .cardBody {
+  background: radial-gradient(
+      900px 360px at 20% 15%,
+      rgba(0, 140, 255, 0.18),
+      transparent 58%
+    ),
+    #ffffff;
+}
+
+@media (max-width: 980px) {
+  .item {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    min-height: auto;
+    padding-bottom: 64px;
+  }
+
+  .itemRight {
+    padding-top: 0;
+  }
+
+  .stickyWrap {
+    position: relative;
+    top: auto;
+    transform: none;
+  }
+}
+

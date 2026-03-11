@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 const FRAME_COUNT = 6;
 const PATTERN_SIZE = 128;
 const GRAIN_FPS = 12;
+const MotionCanvas = motion.canvas;
 
 export default function GrainCanvas({ delay = 0 }) {
   const canvasRef = useRef(null);
@@ -64,7 +65,7 @@ export default function GrainCanvas({ delay = 0 }) {
   }, []);
 
   return (
-    <motion.canvas
+    <MotionCanvas
       ref={canvasRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 0.04 }}

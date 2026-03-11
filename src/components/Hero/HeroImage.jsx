@@ -20,12 +20,15 @@ const FLAG_SKEW_Y = [0, 1, 0, -1, 0];
 const FLAG_SKEW_X = [0, -0.4, 0, 0.4, 0];
 const FLAG_DURATION_S = 2.8;
 const FLAG_RETURN_DURATION_S = 0.55;
+const MotionDiv = motion.div;
 
 function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
+  const [reduced, setReduced] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(mq.matches);
     const handler = (e) => setReduced(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
@@ -52,7 +55,7 @@ export default function HeroImage({ src, alt, delay = 0.2 }) {
   }, []);
 
   return (
-    <motion.div
+    <MotionDiv
       className={styles.wrapper}
       initial={{ opacity: 0, scale: 1.03 }}
       animate={{
@@ -75,6 +78,6 @@ export default function HeroImage({ src, alt, delay = 0.2 }) {
       onMouseEnter={handleMouseEnter}
     >
       <img src={src} alt={alt} className={styles.image} />
-    </motion.div>
+    </MotionDiv>
   );
 }

@@ -2,9 +2,12 @@ import { useState, useCallback, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Loader from './components/Loader/Loader';
 import Hero from './components/Hero/Hero';
+import CaseStudies from './components/CaseStudies/CaseStudies';
 
 const EASE_SMOOTH = [0.76, 0, 0.24, 1];
 const MORPH_DURATION = 1.2;
+const MotionDiv = motion.div;
+const MotionP = motion.p;
 
 const HERO_TITLE_MEASURE = {
   position: 'absolute',
@@ -45,7 +48,7 @@ function MorphTitle({ morphData, isTransitioning, onComplete }) {
   }
 
   return (
-    <motion.p
+    <MotionP
       style={{
         position: 'fixed',
         top: 0,
@@ -80,7 +83,7 @@ function MorphTitle({ morphData, isTransitioning, onComplete }) {
       }}
     >
       OLUWAFEMI
-    </motion.p>
+    </MotionP>
   );
 }
 
@@ -107,28 +110,30 @@ export default function App() {
       style={{
         position: 'relative',
         width: '100vw',
-        height: '100vh',
         background: '#fff',
-        overflow: 'hidden',
+        overflowX: 'hidden',
       }}
     >
       <AnimatePresence>
         {phase === 'loading' && (
-          <motion.div
+          <MotionDiv
             key="loader"
-            style={{ position: 'absolute', inset: 0, zIndex: 10 }}
+            style={{ position: 'fixed', inset: 0, zIndex: 10 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: EASE_SMOOTH }}
           >
             <Loader onComplete={handleLoaderComplete} nameRef={nameRef} />
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
 
-      {phase === 'hero' && (
-        <div style={{ position: 'absolute', inset: 0 }}>
-          <Hero hideTitle={!!morphData} />
-        </div>
+      {phase !== 'loading' && (
+        <main>
+          <div style={{ minHeight: '100vh' }}>
+            <Hero hideTitle={!!morphData} />
+          </div>
+          <CaseStudies />
+        </main>
       )}
 
       {phase !== 'loading' && morphData && (

@@ -3,11 +3,12 @@ import styles from './Loader.module.css';
 
 const EASE = [0.76, 0, 0.24, 1];
 const DURATION = 0.9;
+const MotionP = motion.p;
 
 function RevealLine({ text, delay, className, textRef }) {
   return (
     <div className={styles.nameLineWrapper}>
-      <motion.p
+      <MotionP
         ref={textRef}
         className={`${styles.nameLine} ${className || ''}`}
         initial={{ y: '110%' }}
@@ -15,7 +16,7 @@ function RevealLine({ text, delay, className, textRef }) {
         transition={{ duration: DURATION, ease: EASE, delay }}
       >
         {text}
-      </motion.p>
+      </MotionP>
     </div>
   );
 }

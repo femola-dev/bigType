@@ -10,6 +10,8 @@ import iconArrowDown from '../../assets/hero/iconArrowDown.svg';
 import isaacSpeak from '../../assets/isaac_speak.mp3';
 
 const EASE = [0.25, 0.46, 0.45, 0.94];
+const MotionP = motion.p;
+const MotionDiv = motion.div;
 
 export default function Hero({ hideTitle = false }) {
   const audioRef = useRef(null);
@@ -26,20 +28,20 @@ export default function Hero({ hideTitle = false }) {
   return (
     <div className={styles.hero}>
       {!hideTitle && (
-        <motion.p
+        <MotionP
           className={styles.title}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
         >
           OLUWAFEMI
-        </motion.p>
+        </MotionP>
       )}
 
       <HeroImage src={mainImg} alt="Oluwafemi Isaac" delay={0.2} />
 
       <div className={styles.content}>
-        <motion.div
+        <MotionDiv
           className={styles.contentInner}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -68,9 +70,9 @@ export default function Hero({ hideTitle = false }) {
             Product designer based in Toronto, creating products that make
             complex things simple and helpful through thoughtful design.
           </p>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           className={styles.actions}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,10 +98,10 @@ export default function Hero({ hideTitle = false }) {
             </div>
             <span className={styles.actionButtonText}>View resume</span>
           </button>
-        </motion.div>
+        </MotionDiv>
       </div>
 
-      <motion.div
+      <MotionDiv
         className={styles.scrollIndicator}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -117,7 +119,7 @@ export default function Hero({ hideTitle = false }) {
         <p className={styles.scrollText}>
           Scroll down to view case studies
         </p>
-      </motion.div>
+      </MotionDiv>
     </div>
   );
 }
