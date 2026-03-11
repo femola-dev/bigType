@@ -130,16 +130,16 @@ export default function App() {
       {phase !== 'loading' && (
         <main>
           <div style={{ minHeight: '100vh' }}>
-            <Hero hideTitle={!!morphData} />
+            <Hero hideTitle={phase === 'transitioning'} />
           </div>
           <CaseStudies />
         </main>
       )}
 
-      {phase !== 'loading' && morphData && (
+      {phase === 'transitioning' && morphData && (
         <MorphTitle
           morphData={morphData}
-          isTransitioning={phase === 'transitioning'}
+          isTransitioning
           onComplete={() => setPhase('hero')}
         />
       )}

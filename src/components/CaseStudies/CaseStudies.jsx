@@ -1,56 +1,41 @@
 import styles from './CaseStudies.module.css';
 import avatarImg from '../../assets/hero/mainImg.png';
 
+import payzaScreen from '../../assets/Payza Screen.svg';
+import garnerlyScreen from '../../assets/Garnerly  Screen.svg';
+import journowScreen from '../../assets/Journow  Screen.png';
+import axiomScreen from '../../assets/Axiom  Screen.png';
+
 const CASE_STUDIES = [
   {
     key: 'payza',
     title: 'PAYZA',
     description:
       'Designing a communication platform that helps people safely connect in the blockchain space by protecting them from scams and wallet hacks, while making conversations simpler and easier than on existing platforms.',
-    theme: 'light',
+    screen: payzaScreen,
   },
   {
     key: 'garnerly',
     title: 'GARNERLY',
     description:
-      'Designing a fintech platform that helps African residents easily receive international payments, send invoices, and manage multi-currency accounts to work and get paid globally.',
-    theme: 'dark',
+      'Designing a fintech platform that helps African freelancers easily receive international payments, send invoices, and manage multi-currency accounts to work and get paid globally.',
+    screen: garnerlyScreen,
   },
   {
     key: 'journow',
     title: 'JOURNOW',
     description:
-      'Designing a mobile app that helps people easily capture their ideas, thoughts, and experiences, making journaling simpler for users who want to document important moments in their lives.',
-    theme: 'mobile',
+      'Designing a mobile app that helps people easily capture their ideas, thoughts, and experiences, making journaling simple for users who want to document important moments in their lives.',
+    screen: journowScreen,
   },
   {
     key: 'axiom',
     title: 'AXIOM',
     description:
       'Designing a fintech app that helps users grow their wealth by saving, investing in real estate opportunities, and easily tracking their investments in one place.',
-    theme: 'mobile2',
+    screen: axiomScreen,
   },
 ];
-
-function CaseStudyCard({ title, theme }) {
-  return (
-    <div className={styles.card} data-theme={theme} aria-hidden="true">
-      <div className={styles.cardInner}>
-        <div className={styles.cardHeader}>
-          <div className={styles.cardLogo} />
-          <div className={styles.cardSearch} />
-          <div className={styles.cardChip} />
-        </div>
-        <div className={styles.cardBody}>
-          <div className={styles.cardMockTitle}>{title}</div>
-          <div className={styles.cardMockRow} />
-          <div className={styles.cardMockRow} />
-          <div className={styles.cardMockRow} />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function CaseStudies() {
   return (
@@ -68,19 +53,23 @@ export default function CaseStudies() {
       <div className={styles.list}>
         {CASE_STUDIES.map((item, idx) => (
           <article className={styles.item} key={item.key}>
-            <div className={styles.itemLeft}>
-              <div
-                className={styles.stickyWrap}
-                style={{
-                  '--stack-index': idx,
-                }}
-              >
-                <CaseStudyCard title={item.title} theme={item.theme} />
+            <div
+              className={styles.stickyWrap}
+              style={{ '--stack-index': idx }}
+            >
+              <div className={styles.card}>
+                <div className={styles.cardLeft}>
+                  <img
+                    className={styles.cardImage}
+                    src={item.screen}
+                    alt={`${item.title} case study`}
+                  />
+                </div>
+                <div className={styles.cardRight}>
+                  <h2 className={styles.title}>{item.title}</h2>
+                  <p className={styles.description}>{item.description}</p>
+                </div>
               </div>
-            </div>
-            <div className={styles.itemRight}>
-              <h2 className={styles.title}>{item.title}</h2>
-              <p className={styles.description}>{item.description}</p>
             </div>
           </article>
         ))}
@@ -88,4 +77,3 @@ export default function CaseStudies() {
     </section>
   );
 }
-
