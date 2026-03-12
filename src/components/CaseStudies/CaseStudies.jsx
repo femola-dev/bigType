@@ -1,5 +1,6 @@
 import styles from './CaseStudies.module.css';
 import avatarImg from '../../assets/hero/mainImg.png';
+import menuIcon from '../../assets/Menu Icon.svg';
 
 import payzaScreen from '../../assets/Payza Screen.svg';
 import garnerlyScreen from '../../assets/Garnerly  Screen.svg';
@@ -52,17 +53,19 @@ export default function CaseStudies({
           pointerEvents: headerProgress > 0.95 ? 'auto' : 'none',
         }}
       >
-        <div
-          ref={logoRef}
-          className={styles.avatarWrap}
-          style={{ opacity: hideAvatar ? 0 : 1 }}
-        >
-          <img className={styles.avatar} src={avatarImg} alt="" />
+        <div className={styles.topBarInner}>
+          <div
+            ref={logoRef}
+            className={styles.avatarWrap}
+            style={{ opacity: hideAvatar ? 0 : 1 }}
+          >
+            <img className={styles.avatar} src={avatarImg} alt="" />
+          </div>
+          <button className={styles.menuButton} type="button">
+            <img className={styles.menuIcon} src={menuIcon} alt="" aria-hidden="true" />
+            <span className={styles.menuText}>Menu</span>
+          </button>
         </div>
-        <button className={styles.menuButton} type="button">
-          <span className={styles.menuIcon} aria-hidden="true" />
-          <span className={styles.menuText}>Menu</span>
-        </button>
       </header>
 
       <div className={styles.list}>
