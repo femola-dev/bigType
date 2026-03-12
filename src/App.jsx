@@ -1,13 +1,22 @@
-import { useState, useCallback, useRef, useLayoutEffect } from 'react';
+import {
+  useState,
+  useCallback,
+  useRef,
+  useLayoutEffect,
+  useEffect,
+} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Loader from './components/Loader/Loader';
 import Hero from './components/Hero/Hero';
 import CaseStudies from './components/CaseStudies/CaseStudies';
+import mainImg from './assets/hero/mainImg.png';
 
 const EASE_SMOOTH = [0.76, 0, 0.24, 1];
 const MORPH_DURATION = 1.2;
 const MotionDiv = motion.div;
 const MotionP = motion.p;
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+const lerp = (from, to, progress) => from + (to - from) * progress;
 
 const HERO_TITLE_MEASURE = {
   position: 'absolute',
@@ -91,6 +100,15 @@ export default function App() {
   const [phase, setPhase] = useState('loading');
   const nameRef = useRef(null);
   const [morphData, setMorphData] = useState(null);
+  const heroImageRef = useRef(null);
+  const caseSectionRef = useRef(null);
+  const caseLogoRef = useRef(null);
+  const [logoMorph, setLogoMorph] = useState({
+    progress: 0,
+    fromRect: null,
+    toRect: null,
+  });
+  const morphDistanceRef = useRef(1);
 
   const handleLoaderComplete = useCallback(() => {
     if (nameRef.current) {
@@ -104,6 +122,95 @@ export default function App() {
       setPhase('hero');
     }
   }, []);
+
+  useLayoutEffect(() => {
+    if (phase === 'loading') return;
+
+    const updateMeasurements = () => {
+      if (!heroImageRef.current || !caseLogoRef.current || !caseSectionRef.current) {
+        return;
+      }
+
+      const heroRect = heroImageRef.current.getBoundingClientRect();
+      const logoRect = caseLogoRef.current.getBoundingClientRect();
+      const caseTop =
+        caseSectionRef.current.getBoundingClientRect().top + window.scrollY;
+
+      morphDistanceRef.current = Math.max(1, caseTop - 120);
+
+      setLogoMorph((prev) => ({
+        ...prev,
+        fromRect: {
+          left: heroRect.left,
+          top: heroRect.top,
+          width: heroRect.width,
+          height: heroRect.height,
+        },
+        toRect: {
+          left: logoRect.left,
+          top: logoRect.top,
+          width: logoRect.width,
+          height: logoRect.height,
+        },
+      }));
+    };
+
+    updateMeasurements();
+    window.addEventListener('resize', updateMeasurements);
+
+    return () => window.removeEventListener('resize', updateMeasurements);
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase === 'loading') return;
+
+    const updateProgress = () => {
+      const progress = clamp(window.scrollY / morphDistanceRef.current, 0, 1);
+      setLogoMorph((prev) => ({ ...prev, progress }));
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+
+    return () => {
+      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener('resize', updateProgress);
+    };
+  }, [phase]);
+
+  const morphInProgress =
+    phase === 'hero' && logoMorph.progress > 0.01 && logoMorph.progress < 0.999;
+  const canRenderMorphLogo =
+    morphInProgress && logoMorph.fromRect && logoMorph.toRect;
+  const headerProgress = phase === 'hero' ? logoMorph.progress : 0;
+
+  const morphLogoStyle =
+    canRenderMorphLogo && logoMorph.fromRect && logoMorph.toRect
+      ? {
+          left: lerp(
+            logoMorph.fromRect.left,
+            logoMorph.toRect.left,
+            logoMorph.progress
+          ),
+          top: lerp(
+            logoMorph.fromRect.top,
+            logoMorph.toRect.top,
+            logoMorph.progress
+          ),
+          width: lerp(
+            logoMorph.fromRect.width,
+            logoMorph.toRect.width,
+            logoMorph.progress
+          ),
+          height: lerp(
+            logoMorph.fromRect.height,
+            logoMorph.toRect.height,
+            logoMorph.progress
+          ),
+          borderRadius: `${lerp(0, 999, logoMorph.progress)}px`,
+        }
+      : null;
 
   return (
     <div
@@ -130,9 +237,18 @@ export default function App() {
       {phase !== 'loading' && (
         <main>
           <div style={{ minHeight: '100vh' }}>
-            <Hero hideTitle={phase === 'transitioning'} />
+            <Hero
+              hideTitle={phase === 'transitioning'}
+              imageRef={heroImageRef}
+              hideMainImage={morphInProgress}
+            />
           </div>
-          <CaseStudies />
+          <CaseStudies
+            sectionRef={caseSectionRef}
+            logoRef={caseLogoRef}
+            headerProgress={headerProgress}
+            hideAvatar={morphInProgress}
+          />
         </main>
       )}
 
@@ -142,6 +258,29 @@ export default function App() {
           isTransitioning
           onComplete={() => setPhase('hero')}
         />
+      )}
+
+      {morphLogoStyle && (
+        <div
+          style={{
+            position: 'fixed',
+            left: morphLogoStyle.left,
+            top: morphLogoStyle.top,
+            width: morphLogoStyle.width,
+            height: morphLogoStyle.height,
+            borderRadius: morphLogoStyle.borderRadius,
+            overflow: 'hidden',
+            zIndex: 30,
+            pointerEvents: 'none',
+            willChange: 'left, top, width, height, border-radius',
+          }}
+        >
+          <img
+            src={mainImg}
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
       )}
     </div>
   );

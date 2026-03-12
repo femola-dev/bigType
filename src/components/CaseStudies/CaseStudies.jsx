@@ -37,11 +37,26 @@ const CASE_STUDIES = [
   },
 ];
 
-export default function CaseStudies() {
+export default function CaseStudies({
+  sectionRef = null,
+  logoRef = null,
+  headerProgress = 1,
+  hideAvatar = false,
+}) {
   return (
-    <section className={styles.section} aria-label="Case studies">
-      <header className={styles.topBar}>
-        <div className={styles.avatarWrap}>
+    <section ref={sectionRef} className={styles.section} aria-label="Case studies">
+      <header
+        className={styles.topBar}
+        style={{
+          opacity: headerProgress,
+          pointerEvents: headerProgress > 0.95 ? 'auto' : 'none',
+        }}
+      >
+        <div
+          ref={logoRef}
+          className={styles.avatarWrap}
+          style={{ opacity: hideAvatar ? 0 : 1 }}
+        >
           <img className={styles.avatar} src={avatarImg} alt="" />
         </div>
         <button className={styles.menuButton} type="button">
