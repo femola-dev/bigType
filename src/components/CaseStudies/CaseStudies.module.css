@@ -1,7 +1,11 @@
 .section {
+  --card-h: 810px;
+  --sticky-start: 136px;
+  --stack-step: 160px;
+
   width: 100%;
   background: #fff;
-  padding: 152px 0 20px;
+  padding: 152px 0 0;
 }
 
 /* ── Top bar ────────────────────────────────── */
@@ -77,19 +81,18 @@
 .list {
   max-width: calc(1660px + clamp(24px, 6.77vw, 130px) * 2);
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 96px;
   padding: 0 clamp(24px, 6.77vw, 130px);
 }
 
-.item {
-  min-height: 900px;
+.list::after {
+  content: '';
+  display: block;
+  height: 60vh;
 }
 
 .stickyWrap {
   position: sticky;
-  top: calc(40px + var(--stack-index, 0) * 20px);
+  top: calc(var(--sticky-start) + var(--stack-index, 0) * var(--stack-step));
   z-index: calc(10 + var(--stack-index, 0));
   will-change: transform;
 }
@@ -101,7 +104,7 @@
   grid-template-columns: 63% 37%;
   background: #fbfbfb;
   border: 1px solid #ededed;
-  height: 810px;
+  height: var(--card-h);
   overflow: hidden;
 }
 
@@ -154,12 +157,22 @@
 /* ── Responsive ─────────────────────────────── */
 
 @media (max-width: 1100px) {
-  .list {
-    gap: 48px;
+  .section {
+    padding-bottom: 20px;
   }
 
-  .item {
-    min-height: auto;
+  .list::after {
+    display: none;
+  }
+
+  .stickyWrap {
+    position: relative;
+    top: auto;
+    margin-bottom: 48px;
+  }
+
+  .stickyWrap:last-child {
+    margin-bottom: 0;
   }
 
   .card {
@@ -174,11 +187,6 @@
   .cardRight {
     padding: 0 32px 40px;
     gap: 24px;
-  }
-
-  .stickyWrap {
-    position: relative;
-    top: auto;
   }
 }
 
@@ -213,8 +221,11 @@
   }
 
   .list {
-    gap: 32px;
     padding: 0 20px;
+  }
+
+  .stickyWrap {
+    margin-bottom: 32px;
   }
 
   .cardLeft {

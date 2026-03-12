@@ -70,26 +70,26 @@ export default function CaseStudies({
 
       <div className={styles.list}>
         {CASE_STUDIES.map((item, idx) => (
-          <article className={styles.item} key={item.key}>
-            <div
-              className={styles.stickyWrap}
-              style={{ '--stack-index': idx }}
-            >
-              <div className={styles.card}>
-                <div className={styles.cardLeft}>
-                  <img
-                    className={styles.cardImage}
-                    src={item.screen}
-                    alt={`${item.title} case study`}
-                  />
-                </div>
-                <div className={styles.cardRight}>
-                  <h2 className={styles.title}>{item.title}</h2>
-                  <p className={styles.description}>{item.description}</p>
-                </div>
+          <div
+            key={item.key}
+            className={styles.stickyWrap}
+            style={{ '--stack-index': idx }}
+            role="article"
+          >
+            <div className={styles.card}>
+              <div className={styles.cardLeft}>
+                <img
+                  className={styles.cardImage}
+                  src={item.screen}
+                  alt={`${item.title} case study`}
+                />
+              </div>
+              <div className={styles.cardRight}>
+                <h2 className={styles.title}>{item.title}</h2>
+                <p className={styles.description}>{item.description}</p>
               </div>
             </div>
-          </article>
+          </div>
         ))}
       </div>
     </section>

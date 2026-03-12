@@ -218,7 +218,7 @@ export default function App() {
         position: 'relative',
         width: '100vw',
         background: '#fff',
-        overflowX: 'hidden',
+        overflowX: 'clip',
       }}
     >
       <AnimatePresence>
