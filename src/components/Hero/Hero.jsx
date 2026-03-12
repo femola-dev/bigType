@@ -13,7 +13,11 @@ const EASE = [0.25, 0.46, 0.45, 0.94];
 const MotionP = motion.p;
 const MotionDiv = motion.div;
 
-export default function Hero({ hideTitle = false }) {
+export default function Hero({
+  hideTitle = false,
+  imageRef = null,
+  hideMainImage = false,
+}) {
   const audioRef = useRef(null);
 
   const handleSpeakerClick = useCallback(() => {
@@ -38,7 +42,13 @@ export default function Hero({ hideTitle = false }) {
         </MotionP>
       )}
 
-      <HeroImage src={mainImg} alt="Oluwafemi Isaac" delay={0.2} />
+      <HeroImage
+        src={mainImg}
+        alt="Oluwafemi Isaac"
+        delay={0.2}
+        imageRef={imageRef}
+        hidden={hideMainImage}
+      />
 
       <div className={styles.content}>
         <MotionDiv
