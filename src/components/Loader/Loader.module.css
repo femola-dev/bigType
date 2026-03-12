@@ -1,6 +1,6 @@
 /* ============================================
-   LOADER — 1920 x 1080 reference frame
-   New centered layout from Figma
+   LOADER — 1920 × 1080 reference frame
+   Faithfully mirrors the Figma node tree
    ============================================ */
 
 .loader {
@@ -11,11 +11,9 @@
   overflow: hidden;
 }
 
-/* ============================================
-   LOADING BAR
-   Figma: full-width × 24  @  (0, 0)
-   Animates scaleX 0 → 1 over loader duration
-   ============================================ */
+/* ── LOADING BAR ────────────────────────────
+   Figma: 1920 × 24  @  (0, 0)
+   ──────────────────────────────────────────── */
 
 .loadingBarTrack {
   position: absolute;
@@ -34,32 +32,65 @@
   transform-origin: left center;
 }
 
-/* ============================================
-   NAME BLOCK — centered container for both names + passport
-   Figma: 1006 × 378  @  (457, 283)  → centered horizontally
-   ============================================ */
+/* ── CONTENT BLOCK ──────────────────────────
+   Figma node 269:5367
+   flex col · gap 48 · items-center
+   1006 × auto  @  (457, 283)  →  horizontally centered
+   ──────────────────────────────────────────── */
 
-.nameBlock {
+.contentBlock {
   position: absolute;
-  top: 26.204vh;
+  top: 26.204vh;                /* 283 / 1080 */
   left: 50%;
   transform: translateX(-50%);
+  width: 52.396vw;              /* 1006 / 1920 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5vw;                   /* 48 / 1920 */
 }
+
+/* ── NAMES CONTAINER ────────────────────────
+   Figma node 269:5356
+   flex col · gap 112 · items-center · relative
+   width: 100% of content block
+   ──────────────────────────────────────────── */
+
+.namesContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.281vw;                  /* 63 / 1920 — compensates for line-height:1 extra space
+                                    so visible gap between cap-height glyphs ≈ 112px */
+}
+
+/* When text-box-trim is supported the line boxes shrink to cap height,
+   so we need the full Figma gap to keep the same visual spacing. */
+@supports (text-box-trim: both) {
+  .namesContainer {
+    gap: 5.833vw;                /* 112 / 1920 — Figma exact */
+  }
+}
+
+/* ── NAME LINES ─────────────────────────────
+   Figma: 180px Inter Display ExtraBold
+   leading-trim: both  ·  text-edge: cap
+   letter-spacing: -10.8px = -0.06em
+   ──────────────────────────────────────────── */
 
 .nameLineWrapper {
   overflow: hidden;
-}
-
-.nameLineWrapper + .nameLineWrapper {
-  margin-top: 6.042vw;          /* (247 - 131) / 1920 — gap after cap-height trim */
+  width: 100%;
 }
 
 .nameLine {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: clamp(48px, 9.375vw, 180px);   /* 180 / 1920 */
-  line-height: normal;
-  letter-spacing: -0.06em;                   /* -10.8 / 180 */
+  font-size: clamp(48px, 9.375vw, 180px);
+  line-height: 1;
+  letter-spacing: -0.06em;
   color: #000;
   white-space: nowrap;
   margin: 0;
@@ -68,24 +99,28 @@
   text-box-edge: cap alphabetic;
 }
 
-/* ISAAC is offset right within the name block
-   Figma: ISAAC x = 247 inside 1006-wide container */
-.nameLineIsaac {
-  padding-left: 24.55%;        /* 247 / 1006 */
+@supports (text-box-trim: both) {
+  .nameLine {
+    line-height: normal;
+  }
 }
 
-/* ============================================
-   PASSPORT — centered between name lines, overlapping both
-   Figma: 116 × 168  @  center-x, top 112 within name block
-   ============================================ */
+/* ISAAC: text-align center (Figma node 265:4162) */
+.nameLineIsaac {
+  text-align: center;
+}
+
+/* ── PASSPORT ───────────────────────────────
+   Figma node 269:5357
+   absolute · left 445 · top 50% · -translateY(50%)
+   116 × 168  ·  bg white  ·  shadow
+   ──────────────────────────────────────────── */
 
 .passport {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 5.833vw;                /* 112 / 1920 */
-  width: 6.042vw;              /* 116 / 1920 */
-  min-width: 70px;
+  left: 44.234%;                 /* 445 / 1006 */
+  top: 50%;
+  width: 11.531%;                /* 116 / 1006 */
   z-index: 5;
 }
 
@@ -95,37 +130,37 @@
   display: block;
 }
 
-/* ============================================
-   QUOTE
-   Figma: centered  @  y 709, 16px Inter Display Medium
-   ============================================ */
+/* ── QUOTE ──────────────────────────────────
+   Figma node 265:4198
+   16px Inter Display Medium · text-center
+   tracking -0.32px · line-height 32px
+   In flow inside contentBlock (below namesContainer)
+   ──────────────────────────────────────────── */
 
 .quote {
-  position: absolute;
-  top: 65.648vh;               /* 709 / 1080 */
-  left: 50%;
-  transform: translateX(-50%);
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: clamp(12px, 0.833vw, 16px);    /* 16 / 1920 */
+  font-size: clamp(12px, 0.833vw, 16px);
   line-height: 2;
-  letter-spacing: -0.02em;                   /* -0.32 / 16 */
+  letter-spacing: -0.02em;
   color: #000;
+  text-align: center;
+  width: 100%;
   white-space: nowrap;
   font-feature-settings: 'cpsp' 1, 'salt' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
 }
 
-/* ============================================
-   WARNING BADGE
-   Figma: 150.7 × 78  @  centered, y 962
-   ============================================ */
+/* ── WARNING BADGE ──────────────────────────
+   Figma node 265:4201
+   absolute · centered · top 962
+   150.7 × 78
+   ──────────────────────────────────────────── */
 
 .warning {
   position: absolute;
-  top: 89.074vh;               /* 962 / 1080 */
+  top: 89.074vh;                 /* 962 / 1080 */
   left: 50%;
-  transform: translateX(-50%);
-  width: clamp(90px, 7.849vw, 150.7px);     /* 150.7 / 1920 */
+  width: clamp(90px, 7.849vw, 150.7px);
 }
 
 .warningImage {

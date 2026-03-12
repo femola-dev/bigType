@@ -36,6 +36,7 @@ export default function Loader({ onComplete, nameRef }) {
 
   return (
     <div className={styles.loader}>
+      {/* Loading bar */}
       <div className={styles.loadingBarTrack}>
         <MotionDiv
           className={styles.loadingBarFill}
@@ -48,36 +49,41 @@ export default function Loader({ onComplete, nameRef }) {
         />
       </div>
 
-      <div className={styles.nameBlock}>
-        <RevealLine text="OLUWAFEMI" delay={0.45} textRef={nameRef} />
-        <RevealLine
-          text="ISAAC"
-          delay={0.6}
-          className={styles.nameLineIsaac}
-        />
-        <MotionDiv
-          className={styles.passport}
-          initial={{ opacity: 0, scale: 0.95, x: '-50%' }}
-          animate={{ opacity: 1, scale: 1, x: '-50%' }}
-          transition={{ duration: 0.7, ease: EASE_SMOOTH, delay: 0.85 }}
-        >
-          <img
-            src={loadingPassport}
-            alt="Oluwafemi Isaac"
-            className={styles.passportImage}
+      {/* Content block — flex col, holds names + quote */}
+      <div className={styles.contentBlock}>
+        <div className={styles.namesContainer}>
+          <RevealLine text="OLUWAFEMI" delay={0.45} textRef={nameRef} />
+          <RevealLine
+            text="ISAAC"
+            delay={0.6}
+            className={styles.nameLineIsaac}
           />
-        </MotionDiv>
+
+          <MotionDiv
+            className={styles.passport}
+            initial={{ opacity: 0, scale: 0.95, y: '-50%' }}
+            animate={{ opacity: 1, scale: 1, y: '-50%' }}
+            transition={{ duration: 0.7, ease: EASE_SMOOTH, delay: 0.85 }}
+          >
+            <img
+              src={loadingPassport}
+              alt="Oluwafemi Isaac"
+              className={styles.passportImage}
+            />
+          </MotionDiv>
+        </div>
+
+        <MotionP
+          className={styles.quote}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: EASE_SMOOTH, delay: 1.05 }}
+        >
+          ― Excellence isn't a finish line; it's the version you keep improving
+        </MotionP>
       </div>
 
-      <MotionP
-        className={styles.quote}
-        initial={{ opacity: 0, y: 20, x: '-50%' }}
-        animate={{ opacity: 1, y: 0, x: '-50%' }}
-        transition={{ duration: 0.6, ease: EASE_SMOOTH, delay: 1.05 }}
-      >
-        ― Excellence isn't a finish line; it's the version you keep improving
-      </MotionP>
-
+      {/* Warning badge */}
       <MotionDiv
         className={styles.warning}
         initial={{ opacity: 0, y: 20, x: '-50%' }}
