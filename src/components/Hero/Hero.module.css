@@ -16,6 +16,7 @@
   right: 0;
   top: 7.41vh;
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 800;
   font-size: clamp(120px, 17.97vw, 345px);
   line-height: normal;
@@ -67,13 +68,13 @@
 
 .pronunciationText {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1, 'case' 1, 'dlig' 1, 'lnum' 1, 'pnum' 1;
   font-weight: 500;
   font-size: clamp(12px, 0.83vw, 16px);
   line-height: 20px;
   letter-spacing: -0.015em;
   color: #6a6a6a;
   white-space: nowrap;
-  font-feature-settings: 'salt' 1, 'case' 1, 'dlig' 1, 'lnum' 1, 'pnum' 1;
 }
 
 .pronunciationTextAlt {
@@ -116,6 +117,7 @@
 
 .bio {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 500;
   font-size: clamp(16px, 1.25vw, 24px);
   line-height: 1.333;
@@ -171,6 +173,7 @@
 
 .actionButtonText {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 500;
   font-size: clamp(16px, 1.25vw, 24px);
   line-height: 1.333;
@@ -212,6 +215,7 @@
 
 .scrollText {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 500;
   font-size: clamp(11px, 0.73vw, 14px);
   line-height: 32px;

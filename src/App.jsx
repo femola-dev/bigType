@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Loader from './components/Loader/Loader';
 import Hero from './components/Hero/Hero';
 import CaseStudies from './components/CaseStudies/CaseStudies';
+import Footer from './components/Footer/Footer';
 import mainImg from './assets/hero/mainImg.png';
 
 const EASE_SMOOTH = [0.76, 0, 0.24, 1];
@@ -24,6 +25,7 @@ const HERO_TITLE_MEASURE = {
   width: '100%',
   top: '7.41vh',
   fontFamily: "'Inter', sans-serif",
+  fontFeatureSettings: "'liga' 1, 'calt' 1, 'salt' 1",
   fontWeight: 800,
   fontSize: 'clamp(120px, 17.97vw, 345px)',
   lineHeight: 1,
@@ -63,6 +65,7 @@ function MorphTitle({ morphData, isTransitioning, onComplete }) {
         top: 0,
         left: 0,
         fontFamily: "'Inter', sans-serif",
+  fontFeatureSettings: "'liga' 1, 'calt' 1, 'salt' 1",
         fontWeight: 800,
         lineHeight: 1,
         letterSpacing: '-0.06em',
@@ -249,6 +252,7 @@ export default function App() {
             headerProgress={headerProgress}
             hideAvatar={morphInProgress}
           />
+          <Footer />
         </main>
       )}
 

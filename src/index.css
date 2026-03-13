@@ -14,7 +14,9 @@ body,
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  /* Inter Alternative styling = Inter + stylistic alternates (salt) for alternate character forms */
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-optical-sizing: auto;
