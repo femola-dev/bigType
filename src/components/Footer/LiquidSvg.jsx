@@ -122,9 +122,6 @@ export default function LiquidSvg({ className }) {
 
     const positions = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
     const texCoords = new Float32Array([0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]);
-    // #region agent log
-    let firstRenderLogged = false;
-    // #endregion
 
     const posBuf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
@@ -138,9 +135,6 @@ export default function LiquidSvg({ className }) {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {
-      // #region agent log
-      fetch('http://127.0.0.1:7853/ingest/b302693a-5a49-404f-ac45-09c3cd44428f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f76f52'},body:JSON.stringify({sessionId:'f76f52',location:'LiquidSvg.jsx:img.onload',message:'Texture loaded',data:{width:img.width,height:img.height,hypothesisId:'H1'},timestamp:Date.now()})}).catch(()=>{});
-      // #endregion
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -171,9 +165,6 @@ export default function LiquidSvg({ className }) {
       if (m.intensity < 0.01) m.intensity = 0;
 
       if (textureLoadedRef.current) {
-        // #region agent log
-        if (!firstRenderLogged) { firstRenderLogged = true; fetch('http://127.0.0.1:7853/ingest/b302693a-5a49-404f-ac45-09c3cd44428f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f76f52'},body:JSON.stringify({sessionId:'f76f52',location:'LiquidSvg.jsx:render',message:'First render with V-flip',data:{hypothesisId:'H1',runId:'post-fix'},timestamp:Date.now()})}).catch(()=>{}); }
-        // #endregion
         gl.useProgram(program);
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, texture);
