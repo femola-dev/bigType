@@ -4,11 +4,14 @@
   --stack-step: 160px;
 
   width: 100%;
-  background: #fff;
+  background: #ffffff;
   padding: 152px 0 0;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* ── Top bar ────────────────────────────────── */
+/* ── Top bar (nav) — fixed, above footer & content; morph target for hero image ─── */
 
 .topBar {
   position: fixed;
@@ -17,7 +20,7 @@
   width: 100%;
   padding: 16px 40px;
   box-sizing: border-box;
-  z-index: 20;
+  z-index: 100;
   transition: opacity 0.2s ease;
   background: #fff;
 }
@@ -105,7 +108,7 @@
 .cardGroup {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: #ffffff;
   flex-shrink: 0;
 }
 
@@ -123,8 +126,7 @@
 .card {
   display: grid;
   grid-template-columns: 63% 37%;
-  background: #fbfbfb;
-  border: 1px solid #ededed;
+  background: #ffffff;
   height: var(--card-h);
   overflow: hidden;
 }

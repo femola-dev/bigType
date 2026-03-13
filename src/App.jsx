@@ -159,9 +159,14 @@ export default function App() {
     };
 
     updateMeasurements();
+    /* Re-measure after paint to catch layout shifts (e.g. images loaded) */
+    const raf = requestAnimationFrame(() => updateMeasurements());
     window.addEventListener('resize', updateMeasurements);
 
-    return () => window.removeEventListener('resize', updateMeasurements);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', updateMeasurements);
+    };
   }, [phase]);
 
   useEffect(() => {
@@ -282,7 +287,12 @@ export default function App() {
           <img
             src={mainImg}
             alt=""
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+            }}
           />
         </div>
       )}

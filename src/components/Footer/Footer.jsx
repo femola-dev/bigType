@@ -5,6 +5,7 @@ import shot02 from '../../assets/shot02.png';
 import shot03 from '../../assets/shot03.png';
 import shot04 from '../../assets/shot04.png';
 import shot05 from '../../assets/shot05.png';
+import LiquidSvg from './LiquidSvg';
 import FemolaaaSvg from '../../assets/Femolaaa.svg';
 
 /* Figma: shot01 (mask), shot02 radius 9, shot03 radius 12, shot04 radius 8, shot05 no radius */
@@ -46,11 +47,7 @@ export default function Footer() {
       <div className={styles.divider} aria-hidden="true" />
 
       <div className={styles.brandSection}>
-        <img
-          src={FemolaaaSvg}
-          alt="FEMOLAAA"
-          className={styles.brandSvg}
-        />
+        <LiquidSvg className={styles.liquidSvg} />
       </div>
     </footer>
   );
