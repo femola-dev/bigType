@@ -15,6 +15,7 @@ const fragmentShaderSource = `#version 300 es
 precision highp float;
 uniform sampler2D u_texture;
 uniform vec2 u_mouse;
+uniform vec2 u_velocity;
 uniform float u_time;
 uniform float u_intensity;
 in vec2 v_texCoord;
@@ -29,8 +30,9 @@ void main() {
   if (dist < maxDist && u_intensity > 0.01) {
     float decay = 1.0 - smoothstep(0.0, maxDist, dist);
     decay *= u_intensity;
+    float scale = 0.42;
+
     float freq = 45.0;
-    float scale = 0.6;
     float ripple = sin(dist * freq - u_time * 2.5) * decay * 0.08 * scale
                  + sin(dist * freq * 1.3 + u_time * 2.0) * decay * 0.06 * scale
                  + sin(dist * freq * 0.7 - u_time * 3.0) * decay * 0.07 * scale;
@@ -38,9 +40,18 @@ void main() {
     vec2 tangent = vec2(-radial.y, radial.x);
     float swirl = sin(dist * freq * 1.5 + u_time * 1.8) * decay * 0.05 * scale;
     uv -= radial * ripple + tangent * swirl;
+
+    float velLen = length(u_velocity);
+    if (velLen > 0.001) {
+      vec2 velDir = u_velocity / velLen;
+      float stretchStr = 0.14 * scale * decay * min(velLen * 8.0, 1.0);
+      float alongVel = dot(toMouse, velDir);
+      float stretch = stretchStr * (1.0 - dist / maxDist) * smoothstep(-0.1, 0.3, alongVel);
+      uv -= velDir * stretch;
+    }
   }
 
-  outColor = texture(u_texture, uv);
+  outColor = texture(u_texture, vec2(uv.x, 1.0 - uv.y));
 }
 `;
 
@@ -111,6 +122,9 @@ export default function LiquidSvg({ className }) {
 
     const positions = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
     const texCoords = new Float32Array([0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]);
+    // #region agent log
+    let firstRenderLogged = false;
+    // #endregion
 
     const posBuf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
@@ -124,6 +138,9 @@ export default function LiquidSvg({ className }) {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {
+      // #region agent log
+      fetch('http://127.0.0.1:7853/ingest/b302693a-5a49-404f-ac45-09c3cd44428f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f76f52'},body:JSON.stringify({sessionId:'f76f52',location:'LiquidSvg.jsx:img.onload',message:'Texture loaded',data:{width:img.width,height:img.height,hypothesisId:'H1'},timestamp:Date.now()})}).catch(()=>{});
+      // #endregion
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -154,6 +171,9 @@ export default function LiquidSvg({ className }) {
       if (m.intensity < 0.01) m.intensity = 0;
 
       if (textureLoadedRef.current) {
+        // #region agent log
+        if (!firstRenderLogged) { firstRenderLogged = true; fetch('http://127.0.0.1:7853/ingest/b302693a-5a49-404f-ac45-09c3cd44428f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f76f52'},body:JSON.stringify({sessionId:'f76f52',location:'LiquidSvg.jsx:render',message:'First render with V-flip',data:{hypothesisId:'H1',runId:'post-fix'},timestamp:Date.now()})}).catch(()=>{}); }
+        // #endregion
         gl.useProgram(program);
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, texture);
