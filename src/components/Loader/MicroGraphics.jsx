@@ -4,6 +4,8 @@ import styles from './Loader.module.css';
 import micorGraphics from '../../assets/micorGraphics.svg';
 import isaacSpeak from '../../assets/isaac_speak.mp3';
 
+const MotionDiv = motion.div;
+
 export default function MicroGraphics({ delay = 0 }) {
   const audioRef = useRef(null);
 
@@ -17,7 +19,7 @@ export default function MicroGraphics({ delay = 0 }) {
   }, []);
 
   return (
-    <motion.div
+    <MotionDiv
       className={styles.microCard}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -36,6 +38,6 @@ export default function MicroGraphics({ delay = 0 }) {
           type="button"
         />
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 }

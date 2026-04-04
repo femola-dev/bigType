@@ -12,10 +12,8 @@
 
 .title {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 100vw;
+  left: 0;
+  right: 0;
   top: 7.41vh;
   font-family: 'Inter', sans-serif;
   font-weight: 800;

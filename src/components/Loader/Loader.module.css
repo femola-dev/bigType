@@ -1,6 +1,6 @@
 /* ============================================
-   LOADER — 1920 x 1080 reference frame
-   All positions derived from Figma pixel values
+   LOADER — 1920 × 1080 reference frame
+   Faithfully mirrors the Figma node tree
    ============================================ */
 
 .loader {
@@ -9,22 +9,18 @@
   height: 100vh;
   background: #ffffff;
   overflow: hidden;
-  padding-right: 4%;   /* prevent name text clipping on the right */
-  box-sizing: border-box;
 }
 
-/* ============================================
-   LOADING BAR
-   Figma: 1920 x 24  @  (0, 0)
-   Animates width 0 → 100% over loader duration
-   ============================================ */
+/* ── LOADING BAR ────────────────────────────
+   Figma: 1920 × 24  @  (0, 0)
+   ──────────────────────────────────────────── */
 
 .loadingBarTrack {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: clamp(16px, 2.222vh, 24px);  /* 24 / 1080 */
+  height: clamp(16px, 2.222vh, 24px);
   z-index: 10;
   overflow: hidden;
 }
@@ -36,139 +32,139 @@
   transform-origin: left center;
 }
 
-/* ============================================
-   PHOTO CARD
-   Figma: 200 x 237  @  (70, 78)
-   ============================================ */
+/* ── CONTENT BLOCK ──────────────────────────
+   Figma node 269:5367
+   flex col · gap 48 · items-center
+   1006 × auto  @  (457, 283)  →  horizontally centered
+   ──────────────────────────────────────────── */
 
-.photoCard {
+.contentBlock {
   position: absolute;
-  left: 3.646%;        /* 70 / 1920 */
-  top: 7.222%;         /* 78 / 1080 */
-  width: 10.417vw;     /* 200 / 1920 */
-  min-width: 140px;
-  z-index: 2;
-}
-
-.photoCardImage {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ============================================
-   SUBTITLE
-   Figma: (70, 329)  24px Inter Display Medium
-   line-height 32px, tracking -0.96px
-   ============================================ */
-
-.subtitle {
-  position: absolute;
-  left: 3.646%;        /* 70 / 1920 */
-  top: 30.463%;        /* 329 / 1080 */
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: clamp(14px, 1.25vw, 24px);   /* 24 / 1920 */
-  line-height: 1.333;                      /* 32 / 24 */
-  letter-spacing: -0.04em;                 /* -0.96 / 24 */
-  color: #000;
-  white-space: nowrap;
-  z-index: 2;
-  font-optical-sizing: auto;
-  font-feature-settings: 'cpsp' 1, 'salt' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
-}
-
-/* ============================================
-   NAME + CARD ROW (single anchor for cross-browser alignment)
-   Wrapper positioned once from bottom so ISAAC and card stay aligned.
-   ISAAC bottom = 82.778vh + 10.417vw → row bottom = 17.222vh - 10.417vw
-   ============================================ */
-
-.nameCardRow {
-  position: absolute;
-  right: 2.083%;       /* 40 / 1920 */
-  bottom: calc(17.222vh - 10.417vw);
+  top: 26.204vh;                /* 283 / 1080 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52.396vw;              /* 1006 / 1920 */
   display: flex;
-  flex-direction: row-reverse;
-  align-items: center;  /* vertically align micrographics with Isaac text line */
-  gap: clamp(12px, 1.5vw, 28px);
-  z-index: 2;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5vw;                   /* 48 / 1920 */
 }
 
-/* ============================================
-   NAME REVEAL
-   Figma container: 1117 x 316  @  (763, 724)
-   OLUWAFEMI @ (0, 0) inside container
-   ISAAC     @ (32, 170) right-aligned, w 1085
-   Font: 200px Inter Display ExtraBold, tracking -12px
-   ============================================ */
+/* ── NAMES CONTAINER ────────────────────────
+   Figma node 269:5356
+   flex col · gap 112 · items-center · relative
+   width: 100% of content block
+   ──────────────────────────────────────────── */
 
-.nameBlock {
-  flex-shrink: 0;
-  z-index: 1;
+.namesContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.281vw;                  /* 63 / 1920 — compensates for line-height:1 extra space
+                                    so visible gap between cap-height glyphs ≈ 112px */
 }
+
+/* When text-box-trim is supported the line boxes shrink to cap height,
+   so we need the full Figma gap to keep the same visual spacing. */
+@supports (text-box-trim: both) {
+  .namesContainer {
+    gap: 5.833vw;                /* 112 / 1920 — Figma exact */
+  }
+}
+
+/* ── NAME LINES ─────────────────────────────
+   Figma: 180px Inter Display ExtraBold
+   leading-trim: both  ·  text-edge: cap
+   letter-spacing: -10.8px = -0.06em
+   ──────────────────────────────────────────── */
 
 .nameLineWrapper {
   overflow: hidden;
-}
-
-.nameLineWrapper + .nameLineWrapper {
-  margin-top: -1.5625vw; /* (170 - 200) / 1920 = -30 / 1920 */
+  width: 100%;
 }
 
 .nameLine {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: clamp(48px, 10.417vw, 200px);  /* 200 / 1920 */
+  font-size: clamp(48px, 9.375vw, 180px);
   line-height: 1;
-  letter-spacing: -0.06em;                   /* -12 / 200 */
+  letter-spacing: -0.06em;
   color: #000;
   white-space: nowrap;
   margin: 0;
   font-optical-sizing: auto;
+  text-box-trim: both;
+  text-box-edge: cap alphabetic;
 }
 
+@supports (text-box-trim: both) {
+  .nameLine {
+    line-height: normal;
+  }
+}
+
+/* ISAAC: text-align center (Figma node 265:4162) */
 .nameLineIsaac {
-  text-align: right;
+  text-align: center;
 }
 
-/* ============================================
-   MICRO-GRAPHICS CARD
-   Figma: 241 x 146. Aligned with ISAAC via flex-end in .nameCardRow
-   ============================================ */
+/* ── PASSPORT ───────────────────────────────
+   Figma node 269:5357
+   absolute · left 445 · top 50% · -translateY(50%)
+   116 × 168  ·  bg white  ·  shadow
+   ──────────────────────────────────────────── */
 
-.microCard {
-  flex-shrink: 0;
-  width: clamp(160px, 12.552vw, 241px);  /* 241 / 1920 */
-  z-index: 3;
+.passport {
+  position: absolute;
+  left: 44.234%;                 /* 445 / 1006 */
+  top: 50%;
+  width: 11.531%;                /* 116 / 1006 */
+  z-index: 5;
 }
 
-.microCardInner {
-  position: relative;
-}
-
-.microCardImage {
+.passportImage {
   width: 100%;
   height: auto;
   display: block;
 }
 
-.speakerHit {
-  position: absolute;
-  left: 53.5%;
-  top: 35%;
-  width: 12%;
-  height: 10%;
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  z-index: 4;
-  -webkit-tap-highlight-color: transparent;
+/* ── QUOTE ──────────────────────────────────
+   Figma node 265:4198
+   16px Inter Display Medium · text-center
+   tracking -0.32px · line-height 32px
+   In flow inside contentBlock (below namesContainer)
+   ──────────────────────────────────────────── */
+
+.quote {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: clamp(12px, 0.833vw, 16px);
+  line-height: 2;
+  letter-spacing: -0.02em;
+  color: #000;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  font-feature-settings: 'cpsp' 1, 'salt' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
 }
 
-.speakerHit:focus-visible {
-  outline: 2px solid #000;
-  outline-offset: 2px;
-  border-radius: 2px;
+/* ── WARNING BADGE ──────────────────────────
+   Figma node 265:4201
+   absolute · centered · top 962
+   150.7 × 78
+   ──────────────────────────────────────────── */
+
+.warning {
+  position: absolute;
+  top: 89.074vh;                 /* 962 / 1080 */
+  left: 50%;
+  width: clamp(90px, 7.849vw, 150.7px);
+}
+
+.warningImage {
+  width: 100%;
+  height: auto;
+  display: block;
 }
