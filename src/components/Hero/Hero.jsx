@@ -31,16 +31,19 @@ export default function Hero({
 
   return (
     <div className={styles.hero}>
-      {!hideTitle && (
-        <MotionP
-          className={styles.title}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-        >
-          OLUWAFEMI
-        </MotionP>
-      )}
+      <MotionP
+        className={styles.title}
+        initial={false}
+        animate={{ opacity: hideTitle ? 0 : 1 }}
+        transition={{
+          duration: hideTitle ? 0 : 0.4,
+          ease: EASE,
+          delay: hideTitle ? 0 : 0.05,
+        }}
+        style={{ pointerEvents: hideTitle ? 'none' : 'auto' }}
+      >
+        OLUWAFEMI
+      </MotionP>
 
       <HeroImage
         src={mainImg}

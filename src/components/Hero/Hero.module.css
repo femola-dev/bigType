@@ -10,23 +10,24 @@
    LARGE NAME TITLE
    ============================================ */
 
+/* Figma 276:5427 — OLUWAFEMI: centered, top 80px, 345px */
 .title {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 7.41vh;
+  left: 50%;
+  top: 7.41vh; /* ~80px at 1080p */
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 96vw;
   font-family: 'Inter', sans-serif;
   font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 800;
   font-size: clamp(120px, 17.97vw, 345px);
-  line-height: normal;
+  line-height: 1;
   letter-spacing: -0.06em;
   color: #000;
-  text-align: center;
   white-space: nowrap;
   z-index: 1;
-  padding: 0 2%;
-  box-sizing: border-box;
+  margin: 0;
 }
 
 /* Portrait image layout lives in HeroImage.module.css */
