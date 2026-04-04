@@ -76,7 +76,9 @@ export default function CaseStudies({
             style={{ '--stack-index': idx }}
             role="article"
           >
-            <div className={styles.card}>
+            <div className={styles.cardGroup}>
+              <div className={styles.cardHeaderLine} aria-hidden="true" />
+              <div className={styles.card}>
               <div className={styles.cardLeft}>
                 <img
                   className={styles.cardImage}
@@ -88,6 +90,7 @@ export default function CaseStudies({
                 <h2 className={styles.title}>{item.title}</h2>
                 <p className={styles.description}>{item.description}</p>
               </div>
+            </div>
             </div>
           </div>
         ))}

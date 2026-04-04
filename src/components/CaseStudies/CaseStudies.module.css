@@ -4,20 +4,23 @@
   --stack-step: 160px;
 
   width: 100%;
-  background: #fff;
+  background: #ffffff;
   padding: 152px 0 0;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* ── Top bar ────────────────────────────────── */
+/* ── Top bar (nav) — fixed, above footer & content; morph target for hero image ─── */
 
 .topBar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 16px 251px;
+  padding: 16px 40px;
   box-sizing: border-box;
-  z-index: 20;
+  z-index: 100;
   transition: opacity 0.2s ease;
   background: #fff;
 }
@@ -68,20 +71,20 @@
 
 .menuText {
   font-family: 'Inter Display', 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1, 'cpsp' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
   font-weight: 500;
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.96px;
   color: #000;
-  font-feature-settings: 'cpsp' 1, 'salt' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
 }
 
 /* ── List & Items ───────────────────────────── */
 
 .list {
-  max-width: calc(1660px + clamp(24px, 6.77vw, 130px) * 2);
+  max-width: calc(1840px + clamp(20px, 2.08vw, 40px) * 2);
   margin: 0 auto;
-  padding: 0 clamp(24px, 6.77vw, 130px);
+  padding: 0 clamp(20px, 2.08vw, 40px);
 }
 
 .list::after {
@@ -95,6 +98,27 @@
   top: calc(var(--sticky-start) + var(--stack-index, 0) * var(--stack-step));
   z-index: calc(10 + var(--stack-index, 0));
   will-change: transform;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── Card group: line + card in one white-background unit (prevents stacking bugs) ─── */
+
+.cardGroup {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+/* ── Card header line (Figma: Rectangle 379) ─── */
+
+.cardHeaderLine {
+  width: 100%;
+  height: 4px;
+  background: #000;
+  flex-shrink: 0;
 }
 
 /* ── Card ────────────────────────────────────── */
@@ -102,8 +126,7 @@
 .card {
   display: grid;
   grid-template-columns: 63% 37%;
-  background: #fbfbfb;
-  border: 1px solid #ededed;
+  background: #ffffff;
   height: var(--card-h);
   overflow: hidden;
 }
@@ -135,6 +158,7 @@
 
 .title {
   font-family: 'Inter Display', 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 800;
   font-size: clamp(56px, 5.2vw, 80px);
   line-height: 1;
@@ -146,6 +170,7 @@
 .description {
   max-width: 524px;
   font-family: 'Inter Display', 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 500;
   font-size: clamp(18px, 1.25vw, 24px);
   line-height: 32px;

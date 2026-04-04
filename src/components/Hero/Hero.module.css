@@ -10,22 +10,24 @@
    LARGE NAME TITLE
    ============================================ */
 
+/* Figma 276:5427 — OLUWAFEMI: centered, top 80px, 345px */
 .title {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 7.41vh;
+  left: 50%;
+  top: 7.41vh; /* ~80px at 1080p */
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 96vw;
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 800;
   font-size: clamp(120px, 17.97vw, 345px);
-  line-height: normal;
+  line-height: 1;
   letter-spacing: -0.06em;
   color: #000;
-  text-align: center;
   white-space: nowrap;
   z-index: 1;
-  padding: 0 2%;
-  box-sizing: border-box;
+  margin: 0;
 }
 
 /* Portrait image layout lives in HeroImage.module.css */
@@ -67,13 +69,13 @@
 
 .pronunciationText {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1, 'case' 1, 'dlig' 1, 'lnum' 1, 'pnum' 1;
   font-weight: 500;
   font-size: clamp(12px, 0.83vw, 16px);
   line-height: 20px;
   letter-spacing: -0.015em;
   color: #6a6a6a;
   white-space: nowrap;
-  font-feature-settings: 'salt' 1, 'case' 1, 'dlig' 1, 'lnum' 1, 'pnum' 1;
 }
 
 .pronunciationTextAlt {
@@ -116,6 +118,7 @@
 
 .bio {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 500;
   font-size: clamp(16px, 1.25vw, 24px);
   line-height: 1.333;
@@ -171,6 +174,7 @@
 
 .actionButtonText {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 500;
   font-size: clamp(16px, 1.25vw, 24px);
   line-height: 1.333;
@@ -212,6 +216,7 @@
 
 .scrollText {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 500;
   font-size: clamp(11px, 0.73vw, 14px);
   line-height: 32px;

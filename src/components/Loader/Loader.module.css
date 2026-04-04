@@ -87,6 +87,7 @@
 
 .nameLine {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1;
   font-weight: 800;
   font-size: clamp(48px, 9.375vw, 180px);
   line-height: 1;
@@ -139,6 +140,7 @@
 
 .quote {
   font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1, 'cpsp' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
   font-weight: 500;
   font-size: clamp(12px, 0.833vw, 16px);
   line-height: 2;
@@ -147,7 +149,6 @@
   text-align: center;
   width: 100%;
   white-space: nowrap;
-  font-feature-settings: 'cpsp' 1, 'salt' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
 }
 
 /* ── WARNING BADGE ──────────────────────────
