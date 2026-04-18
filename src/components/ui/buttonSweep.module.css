@@ -1,0 +1,286 @@
+/**
+ * Figma node 308:1890 — Button Interaction
+ * Before: white fill, #ededed border, black icon + label
+ * Hover: black rises from bottom; skewed edge only mid-animation, ending as a flat full fill
+ * Rest (mouse out): back to white
+ */
+
+.sweepBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid #ededed;
+  background: #fff;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    border-color 0.5s cubic-bezier(0.76, 0, 0.24, 1),
+    box-shadow 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.sweepBtn::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  height: 0;
+  background: #0a0a0a;
+  /* Diagonal leading edge only while the fill is moving; skew goes to 0 for a flat full cover */
+  transform: skewY(-11deg);
+  transform-origin: bottom center;
+  z-index: 0;
+  transition:
+    height 0.55s cubic-bezier(0.76, 0, 0.24, 1),
+    transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.sweepBtn:hover::before,
+.sweepBtn:focus-visible::before {
+  height: 100%;
+  transform: skewY(0deg);
+}
+
+.sweepBtn:hover,
+.sweepBtn:focus-visible {
+  border-color: #fff;
+  box-shadow: inset 0 0 0 1px #fff;
+}
+
+.sweepInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sweepIconSlot {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sweepIconDark,
+.sweepIconLight {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.sweepIconLight {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: brightness(0) invert(1);
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.sweepBtn:hover .sweepIconLight,
+.sweepBtn:focus-visible .sweepIconLight {
+  clip-path: inset(0 0 0 0);
+}
+
+.labelStack {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sweepTextDark {
+  color: #000;
+}
+
+.sweepTextLight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fff;
+  white-space: nowrap;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.sweepBtn:hover .sweepTextLight,
+.sweepBtn:focus-visible .sweepTextLight {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ── Hero action buttons (Copy email / View resume) ── */
+
+.sweepHero .sweepInner {
+  padding-right: 8px;
+}
+
+.sweepHero .sweepIconSlot {
+  width: clamp(24px, 1.67vw, 32px);
+  height: clamp(24px, 1.67vw, 32px);
+}
+
+.sweepHero .sweepIconDark,
+.sweepHero .sweepIconLight {
+  width: clamp(18px, 1.25vw, 24px);
+  height: clamp(18px, 1.25vw, 24px);
+}
+
+.sweepHero .sweepTextDark,
+.sweepHero .sweepTextLight {
+  font-family: 'Inter', sans-serif;
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1,
+    'salt' 1,
+    'cpsp' 1,
+    'ss03' 1,
+    'ss01' 1,
+    'lnum' 1,
+    'pnum' 1;
+  font-weight: 500;
+  font-size: clamp(16px, 1.25vw, 24px);
+  line-height: 1.333;
+  letter-spacing: -0.04em;
+}
+
+/* ── Case studies menu ── */
+
+.sweepMenu .sweepInner {
+  padding: 0;
+}
+
+.sweepMenu .sweepIconSlot {
+  width: 32px;
+  height: 32px;
+}
+
+.sweepMenu .sweepIconDark,
+.sweepMenu .sweepIconLight {
+  width: 32px;
+  height: 32px;
+}
+
+.sweepMenu .sweepTextDark,
+.sweepMenu .sweepTextLight {
+  font-family: 'Inter Display', 'Inter', sans-serif;
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1,
+    'salt' 1,
+    'cpsp' 1,
+    'ss03' 1,
+    'ss01' 1,
+    'lnum' 1,
+    'pnum' 1;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.04em;
+}
+
+/* ── Pronunciation icon-only (compact) ── */
+
+.sweepIconOnly {
+  width: clamp(36px, 2.5vw, 44px);
+  height: clamp(36px, 2.5vw, 44px);
+  min-width: clamp(36px, 2.5vw, 44px);
+  padding: 0;
+  border-radius: 2px;
+}
+
+.sweepIconOnly .sweepInner {
+  gap: 0;
+}
+
+.sweepIconOnly .sweepIconSlot {
+  width: clamp(16px, 1.04vw, 20px);
+  height: clamp(16px, 1.04vw, 20px);
+}
+
+.sweepIconOnly .sweepIconDark,
+.sweepIconOnly .sweepIconLight {
+  width: clamp(16px, 1.04vw, 20px);
+  height: clamp(16px, 1.04vw, 20px);
+}
+
+/* ── Loader: invisible hit target over illustration (fill + border only) ── */
+
+.sweepLoaderGhost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.sweepLoaderGhost:hover,
+.sweepLoaderGhost:focus-visible {
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+}
+
+.sweepLoaderGhost::before {
+  opacity: 0.92;
+}
+
+@media (max-width: 640px) {
+  .sweepMenu {
+    height: 48px;
+  }
+
+  .sweepMenu .sweepInner {
+    gap: 10px;
+  }
+
+  .sweepMenu .sweepTextDark,
+  .sweepMenu .sweepTextLight {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.025em;
+  }
+
+  .sweepMenu .sweepIconSlot {
+    width: 18px;
+    height: 14px;
+  }
+
+  .sweepMenu .sweepIconDark,
+  .sweepMenu .sweepIconLight {
+    width: 18px;
+    height: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweepBtn::before {
+    transition-duration: 0.01ms;
+  }
+
+  .sweepIconLight,
+  .sweepTextLight {
+    transition-duration: 0.01ms;
+  }
+
+  .sweepBtn:hover::before,
+  .sweepBtn:focus-visible::before {
+    height: 100%;
+    transform: skewY(0deg);
+  }
+
+  .sweepBtn:hover .sweepIconLight,
+  .sweepBtn:focus-visible .sweepIconLight,
+  .sweepBtn:hover .sweepTextLight,
+  .sweepBtn:focus-visible .sweepTextLight {
+    clip-path: inset(0 0 0 0);
+  }
+}

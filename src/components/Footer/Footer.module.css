@@ -103,14 +103,6 @@
   pointer-events: auto;
 }
 
-.brandSvg {
-  width: 100%;
-  max-width: 1920px;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
-}
-
 /* ── Responsive ───────────────────────────── */
 
 @media (max-width: 1100px) {

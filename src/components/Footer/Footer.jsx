@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import styles from './Footer.module.css';
 import shot01 from '../../assets/shot01.png';
 import shot02 from '../../assets/shot02.png';
 import shot03 from '../../assets/shot03.png';
 import shot04 from '../../assets/shot04.png';
 import shot05 from '../../assets/shot05.png';
-import LiquidSvg from './LiquidSvg';
+import { LiquidTypeCanvas } from './liquid/LiquidTypeCanvas';
 
 /* Figma: shot01 (mask), shot02 radius 9, shot03 radius 12, shot04 radius 8, shot05 no radius */
 const ARCHIVE_IMAGES = [
@@ -15,6 +15,22 @@ const ARCHIVE_IMAGES = [
   { src: shot04, alt: 'Shot 4', radius: 8 },
   { src: shot05, alt: 'Shot 5', radius: 0 },
 ];
+
+function DevFooterTweak() {
+  const [Panel, setPanel] = useState(null);
+  useEffect(() => {
+    if (!import.meta.env.DEV) return undefined;
+    let cancelled = false;
+    import('./liquid/FooterTweakPanel').then((m) => {
+      if (!cancelled) setPanel(() => m.FooterTweakPanel);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  if (!import.meta.env.DEV || !Panel) return null;
+  return <Panel />;
+}
 
 export default function Footer() {
   /* Duplicate slides for seamless infinite loop animation */
@@ -46,7 +62,10 @@ export default function Footer() {
       <div className={styles.divider} aria-hidden="true" />
 
       <div className={styles.brandSection}>
-        <LiquidSvg className={styles.liquidSvg} />
+        <div className={styles.liquidWrapper}>
+          <LiquidTypeCanvas />
+        </div>
+        <DevFooterTweak />
       </div>
     </footer>
   );

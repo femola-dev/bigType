@@ -1,4 +1,5 @@
 import styles from './CaseStudies.module.css';
+import sweep from '../ui/buttonSweep.module.css';
 import avatarImg from '../../assets/hero/mainImg.png';
 import menuIcon from '../../assets/Menu Icon.svg';
 
@@ -61,9 +62,32 @@ export default function CaseStudies({
           >
             <img className={styles.avatar} src={avatarImg} alt="" />
           </div>
-          <button className={styles.menuButton} type="button">
-            <img className={styles.menuIcon} src={menuIcon} alt="" aria-hidden="true" />
-            <span className={styles.menuText}>Menu</span>
+          <button
+            className={`${styles.menuButton} ${sweep.sweepBtn} ${sweep.sweepMenu}`}
+            type="button"
+          >
+            <span className={sweep.sweepInner}>
+              <span className={sweep.sweepIconSlot}>
+                <img
+                  className={sweep.sweepIconDark}
+                  src={menuIcon}
+                  alt=""
+                  aria-hidden="true"
+                />
+                <img
+                  className={sweep.sweepIconLight}
+                  src={menuIcon}
+                  alt=""
+                  aria-hidden="true"
+                />
+              </span>
+              <span className={sweep.labelStack}>
+                <span className={sweep.sweepTextDark}>Menu</span>
+                <span className={sweep.sweepTextLight} aria-hidden>
+                  Menu
+                </span>
+              </span>
+            </span>
           </button>
         </div>
       </header>
