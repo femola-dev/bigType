@@ -1,6 +1,7 @@
 import { useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Hero.module.css';
+import sweep from '../ui/buttonSweep.module.css';
 import HeroImage from './HeroImage';
 import mainImg from '../../assets/hero/mainImg.png';
 import iconVolume from '../../assets/hero/iconVolume.svg';
@@ -68,15 +69,25 @@ export default function Hero({
             </p>
             <button
               type="button"
-              className={styles.pronunciationButton}
+              className={`${styles.pronunciationButton} ${sweep.sweepBtn} ${sweep.sweepIconOnly}`}
               onClick={handleSpeakerClick}
               aria-label="Play pronunciation"
             >
-              <img
-                src={iconVolume}
-                alt=""
-                className={styles.pronunciationIcon}
-              />
+              <span className={sweep.sweepInner}>
+                <span className={sweep.sweepIconSlot}>
+                  <img
+                    src={iconVolume}
+                    alt=""
+                    className={sweep.sweepIconDark}
+                  />
+                  <img
+                    src={iconVolume}
+                    alt=""
+                    aria-hidden
+                    className={sweep.sweepIconLight}
+                  />
+                </span>
+              </span>
             </button>
           </div>
           <p className={styles.bio}>
@@ -91,25 +102,53 @@ export default function Hero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.5 }}
         >
-          <button className={styles.actionButton} type="button">
-            <div className={styles.actionButtonIcon}>
-              <img
-                src={iconCopy}
-                alt=""
-                className={styles.actionButtonIconInner}
-              />
-            </div>
-            <span className={styles.actionButtonText}>Copy email</span>
+          <button
+            className={`${styles.actionButton} ${sweep.sweepBtn} ${sweep.sweepHero}`}
+            type="button"
+          >
+            <span className={sweep.sweepInner}>
+              <span className={sweep.sweepIconSlot}>
+                <img src={iconCopy} alt="" className={sweep.sweepIconDark} />
+                <img
+                  src={iconCopy}
+                  alt=""
+                  aria-hidden
+                  className={sweep.sweepIconLight}
+                />
+              </span>
+              <span className={sweep.labelStack}>
+                <span className={sweep.sweepTextDark}>Copy email</span>
+                <span className={sweep.sweepTextLight} aria-hidden>
+                  Copy email
+                </span>
+              </span>
+            </span>
           </button>
-          <button className={styles.actionButton} type="button">
-            <div className={styles.actionButtonIcon}>
-              <img
-                src={iconArrowUpRight}
-                alt=""
-                className={styles.actionButtonIconInner}
-              />
-            </div>
-            <span className={styles.actionButtonText}>View resume</span>
+          <button
+            className={`${styles.actionButton} ${sweep.sweepBtn} ${sweep.sweepHero}`}
+            type="button"
+          >
+            <span className={sweep.sweepInner}>
+              <span className={sweep.sweepIconSlot}>
+                <img
+                  src={iconArrowUpRight}
+                  alt=""
+                  className={sweep.sweepIconDark}
+                />
+                <img
+                  src={iconArrowUpRight}
+                  alt=""
+                  aria-hidden
+                  className={sweep.sweepIconLight}
+                />
+              </span>
+              <span className={sweep.labelStack}>
+                <span className={sweep.sweepTextDark}>View resume</span>
+                <span className={sweep.sweepTextLight} aria-hidden>
+                  View resume
+                </span>
+              </span>
+            </span>
           </button>
         </MotionDiv>
       </div>

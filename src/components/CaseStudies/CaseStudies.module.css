@@ -51,32 +51,9 @@
 }
 
 .menuButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  border: 1px solid #ededed;
-  background: #fff;
   height: 80px;
   padding: 0 32px 0 28px;
-  cursor: pointer;
   flex-shrink: 0;
-}
-
-.menuIcon {
-  width: 32px;
-  height: 32px;
-  display: block;
-  flex-shrink: 0;
-}
-
-.menuText {
-  font-family: 'Inter Display', 'Inter', sans-serif;
-  font-feature-settings: 'liga' 1, 'calt' 1, 'salt' 1, 'cpsp' 1, 'ss03' 1, 'ss01' 1, 'lnum' 1, 'pnum' 1;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 32px;
-  letter-spacing: -0.96px;
-  color: #000;
 }
 
 /* ── List & Items ───────────────────────────── */
@@ -232,17 +209,6 @@
   .menuButton {
     height: 48px;
     padding: 0 18px 0 16px;
-    gap: 10px;
-  }
-
-  .menuText {
-    font-size: 16px;
-    letter-spacing: -0.4px;
-  }
-
-  .menuIcon {
-    width: 18px;
-    height: 14px;
   }
 
   .list {

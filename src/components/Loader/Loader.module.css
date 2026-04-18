@@ -169,3 +169,31 @@
   height: auto;
   display: block;
 }
+
+/* ── Micro graphics card (speaker) — MicroGraphics.jsx ── */
+
+.microCard {
+  position: relative;
+  width: 100%;
+  max-width: min(100%, 520px);
+}
+
+.microCardInner {
+  position: relative;
+  width: 100%;
+}
+
+.microCardImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.speakerHit {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+}

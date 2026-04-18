@@ -29,3 +29,27 @@ img {
   display: block;
   max-width: 100%;
 }
+
+/* Leva (dev-only footer liquid controls) */
+#leva__root {
+  position: fixed !important;
+  top: 0.75rem !important;
+  right: 0.75rem !important;
+  left: auto !important;
+  bottom: auto !important;
+  width: 300px !important;
+  max-width: calc(100vw - 1.5rem) !important;
+  z-index: 9000 !important;
+  --leva-sizes-rootWidth: 300px;
+}
+
+@media (max-width: 640px) {
+  #leva__root {
+    top: auto !important;
+    bottom: 0.5rem !important;
+    right: 0.5rem !important;
+    width: min(280px, calc(100vw - 1rem)) !important;
+    max-height: 45vh;
+    overflow: auto;
+  }
+}

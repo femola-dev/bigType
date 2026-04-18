@@ -1,6 +1,7 @@
 import { useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Loader.module.css';
+import sweep from '../ui/buttonSweep.module.css';
 import micorGraphics from '../../assets/micorGraphics.svg';
 import isaacSpeak from '../../assets/isaac_speak.mp3';
 
@@ -32,7 +33,7 @@ export default function MicroGraphics({ delay = 0 }) {
           className={styles.microCardImage}
         />
         <button
-          className={styles.speakerHit}
+          className={`${styles.speakerHit} ${sweep.sweepBtn} ${sweep.sweepLoaderGhost}`}
           onClick={handleSpeakerClick}
           aria-label="Play pronunciation"
           type="button"
